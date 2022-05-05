@@ -3,9 +3,12 @@ import './App.css';
 import abi from './utils/waveportal.json';
 import { ethers } from 'ethers';
 
+
 const App = () => {
 	const [currentAccount, setCurrentAccount] = useState('');
 	const [allWaves, setAllWaves] = useState([]);
+    const [message, setMessage] = useState([]);
+
 	const contractAddress = '0x675fb831C38002bdA66560D10Bc78a1f80FCda32'; // redeployed contract with updated address and abi file
 	const contractABI = abi.abi;
 
@@ -84,6 +87,8 @@ const App = () => {
 		}
 	};
 
+    
+
 	const getAllWaves = async () => {
         try {
           const { ethereum } = window;
@@ -110,6 +115,11 @@ const App = () => {
         }
     }
 
+    const storeMessage = (message) => {
+        
+    }
+    
+    
 	useEffect(() => {
 		ifEthWalletConnected();
 	}, []);
@@ -122,14 +132,23 @@ const App = () => {
 					I'm Chan, CompSci Student. Currently I'm exploring the world of
 					blockchain. Enjoying it :D
 				</div>
+                
+                
 				<button className="waveButton" onClick={wave}>
 					Wave At ME!!
 				</button>
-				{!currentAccount && (
+                
+                {!currentAccount && (
 					<button className="waveButton" onClick={connectWallet}>
 						Connect Wallet
 					</button>
 				)}
+                <div>
+                    <textarea value={message} onChange={(event) => setMessage(event.target.value)}></textarea>
+                    {console.log(message)}
+                </div>
+               
+                
 				{allWaves.map((wave, index) => {
 					return (
 						<div
